@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus AI Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 450px;
+            background: #1e293b;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .chat-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        #messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #0f172a;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.bot {
+            text-align: left;
+        }
+
+        .message-bubble {
+            display: inline-block;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 80%;
+            word-wrap: break-word;
+            white-space: pre-line;
+        }
+
+        .user .message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .bot .message-bubble {
+            background: #334155;
+            color: #e2e8f0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .timestamp {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .quick-replies {
+            padding: 10px 20px;
+            background: #1e293b;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .quick-btn {
+            background: #334155;
+            border: 1px solid #475569;
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .quick-btn:hover {
+            background: #667eea;
+            border-color: #667eea;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 15px;
+            background: #1e293b;
+            border-top: 1px solid #334155;
+        }
+
+        #input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 25px;
+            background: #334155;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #input::placeholder {
+            color: #64748b;
+        }
+
+        #sendBtn {
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        #sendBtn:hover {
+            transform: scale(1.05);
+        }
+
+        #sendBtn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: #334155;
+            border-radius: 18px;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .typing-indicator.show {
+            display: inline-block;
+        }
+
+        /* Scrollbar */
+        #messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #messages::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+
+        #messages::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2>🎓 Campus AI Chatbot</h2>
+            <p><span class="status-dot"></span>Online | Your campus assistant</p>
+        </div>
+
+        <div id="messages">
+            <div class="message bot">
+                <div class="message-bubble">
+                    👋 Welcome! I'm your Campus AI Assistant.
+                    
+I can help you with admissions, fees, placements, events, hostel info, and more!
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-replies" id="quickReplies">
+            <button class="quick-btn" onclick="quickSend('Admission process')">📋 Admissions</button>
+            <button class="quick-btn" onclick="quickSend('Fee structure')">💰 Fees</button>
+            <button class="quick-btn" onclick="quickSend('Placement stats')">🎯 Placements</button>
+            <button class="quick-btn" onclick="quickSend('Upcoming events')">🎉 Events</button>
+            <button class="quick-btn" onclick="quickSend('Hostel info')">🏠 Hostel</button>
+        </div>
+
+        <div class="input-area">
+            <input 
+                type="text" 
+                id="input" 
+                placeholder="Type your question..." 
+                onkeypress="handleKeyPress(event)"
+            />
+            <button id="sendBtn" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5000';  // Full URL;
+        const sessionId = "session_" + Date.now();
+
+        function getTime() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function addMessage(text, isUser) {
+            const messagesDiv = document.getElementById("messages");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.innerHTML = `
+                <div class="message-bubble">${text}</div>
+                <div class="timestamp">${getTime()}</div>
+            `;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showTyping() {
+            const messagesDiv = document.getElementById("messages");
+            const typingDiv = document.createElement("div");
+            typingDiv.className = "message bot";
+            typingDiv.id = "typing";
+            typingDiv.innerHTML = `<div class="typing-indicator show">Typing...</div>`;
+            messagesDiv.appendChild(typingDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById("typing");
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById("input");
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            addMessage(message, true);
+            input.value = "";
+            document.getElementById("sendBtn").disabled = true;
+
+            showTyping();
+
+            try {
+                const response = await fetch(`${API_URL}/chat`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        message: message,
+                        session_id: sessionId 
+                    })
+                });
+
+                const data = await response.json();
+                
+                // Simulate realistic delay
+                setTimeout(() => {
+                    hideTyping();
+                    addMessage(data.response, false);
+                    document.getElementById("sendBtn").disabled = false;
+                }, 500 + Math.random() * 500);
+
+            } catch (error) {
+                hideTyping();
+                addMessage("⚠️ Connection error. Please try again.", false);
+                document.getElementById("sendBtn").disabled = false;
+            }
+        }
+
+        function quickSend(text) {
+            document.getElementById("input").value = text;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") sendMessage();
+        }
+    </script>
+</body>
+</html>
