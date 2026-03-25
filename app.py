@@ -11,20 +11,21 @@ KNOWLEDGE_BASE = {
     "admission": {
         "keywords": ["admission", "admit", "enroll", "registration", "apply"],
         "responses": [
-            "📋 Admission process starts in June. Required documents: 10th & 12th marksheets, ID proof, and passport photos.",
-            "📋 Applications open June 1st. Visit the admin office or apply online at college-website.edu/admissions"
+            "📋 Admission process starts in June or post CET."
+            " Required documents: 10th & 12th marksheets, ID proof, and passport photos.",
+            "📋 .For further Enquiry : Visit the admin office or apply online at college-website.edu/admissions"
         ]
     },
     "fees": {
         "keywords": ["fees", "fee", "cost", "tuition", "payment", "scholarship"],
         "responses": [
-            "💰 Fee structure:\n• Engineering: ₹1.2L/year\n• MBA: ₹1.5L/year\n• BCA/BBA: ₹80K/year\n\nScholarships available for merit students!"
+            "💰 Fee structure:\n• Engineering: ₹84k/year\n• ME: ₹67k/year\n• MCA/: ₹71K/year\n• DIPLOMA: ₹45K\n\nScholarships available for merit students!"
         ]
     },
     "placement": {
         "keywords": ["placement", "job", "recruit", "package", "salary", "company", "career"],
         "responses": [
-            "🎯 Placement highlights:\n• 85% placement rate\n• Top recruiters: TCS, Infosys, Wipro, Amazon\n• Highest package: ₹18 LPA\n• Average package: ₹6 LPA"
+            "🎯 Placement highlights:\n• 85% placement rate\n• Top recruiters: TCS, Infosys, Wipro,\n• Highest package: ₹10+ LPA\n• Average package: ₹5+ LPA"
         ]
     },
     "aiml": {
@@ -42,7 +43,7 @@ KNOWLEDGE_BASE = {
     "library": {
         "keywords": ["library", "book", "study", "reading"],
         "responses": [
-            "📚 Library hours: 8 AM - 10 PM (Mon-Sat)\n• 50,000+ books\n• Digital library access\n• Group study rooms available"
+            "📚 Library hours: 8 AM - 5 PM (Mon-Sat)\n• 50,000+ books\n• 15+ Computers Available\n• Digital library access\n• Group study rooms available"
         ]
     },
     "hostel": {
@@ -54,13 +55,13 @@ KNOWLEDGE_BASE = {
     "contact": {
         "keywords": ["contact", "phone", "email", "address", "location", "reach"],
         "responses": [
-            "📞 Contact us:\n• Phone: +91-XXXXX-XXXXX\n• Email: info@college.edu\n• Address: Campus Road, City - 123456"
+            "📞 Contact us:\n• Phone: +91-77700-02544\n• Email: viva-technology.org\n• Address: VIVA Institute of Technology Shrigaon, Veer Sawarkar Road,Virar (E)401305"
         ]
     },
     "timing": {
         "keywords": ["timing", "time", "schedule", "hours", "open", "close"],
         "responses": [
-            "⏰ Campus timings:\n• College: 9 AM - 5 PM\n• Library: 8 AM - 10 PM\n• Admin Office: 10 AM - 4 PM"
+            "⏰ Campus timings:\n• College: 8 AM - 5 PM\n• Library: 8 AM - 5 PM\n• Admin Office: 10 AM - 4 PM"
         ]
     },
     "greeting": {
