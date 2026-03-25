@@ -248,7 +248,8 @@ I can help you with admissions, fees, placements, events, hostel info, and more!
     </div>
 
     <script>
-        const API_URL = 'http://127.0.0.1:5000';  // Full URL;
+        const API_URL = window.location.origin;  // ✅ https://app-x4tj.onrender.com
+
         const sessionId = "session_" + Date.now();
 
         function getTime() {
