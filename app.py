@@ -11,8 +11,7 @@ KNOWLEDGE_BASE = {
     "admission": {
         "keywords": ["admission", "admit", "enroll", "registration", "apply"],
         "responses": [
-            "📋 Admission process starts in June or post CET."
-            " Required documents: 10th & 12th marksheets, ID proof, and passport photos."
+            "📋 Admission process starts in June or post CET.\nRequired documents: 10th & 12th marksheets, ID proof, and passport photos."
             "📋 .For further Enquiry : Visit the admin office or apply online at college-website.edu/admissions"
         ]
     },
